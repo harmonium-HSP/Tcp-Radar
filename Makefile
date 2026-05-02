@@ -52,7 +52,13 @@ $(TEST_DIR)/test_json: $(TEST_DIR)/test_json.c $(SRC_DIR)/json.c $(SRC_DIR)/flow
 	$(CC) $(TEST_CFLAGS) -Iinclude $< $(SRC_DIR)/json.c $(SRC_DIR)/flow.c $(SRC_DIR)/state_helper.c $(TEST_LDFLAGS) -o $@
 
 $(TEST_DIR)/test_logger: $(TEST_DIR)/test_logger.c $(SRC_DIR)/logger.c
-	$(CC) $(TEST_CFLAGS) -Iinclude $< $(SRC_DIR)/logger.c $(TEST_LDFLAGS) -lsqlite3 -pthread -o $@
+	$(CC) $(TEST_CFLAGS) -Iinclude -Isrc $< $(SRC_DIR)/logger.c $(TEST_LDFLAGS) -lsqlite3 -pthread -o $@
+
+$(TEST_DIR)/test_websocket: $(TEST_DIR)/test_websocket.c $(SRC_DIR)/websocket.c
+	$(CC) $(TEST_CFLAGS) -Iinclude -Isrc $< $(SRC_DIR)/websocket.c $(TEST_LDFLAGS) -lssl -lcrypto -pthread -o $@
+
+$(TEST_DIR)/test_pcap_export: $(TEST_DIR)/test_pcap_export.c $(SRC_DIR)/pcap_export.c
+	$(CC) $(TEST_CFLAGS) -Iinclude -Isrc $< $(SRC_DIR)/pcap_export.c $(TEST_LDFLAGS) -o $@
 
 $(TEST_DIR)/test_%: $(TEST_DIR)/test_%.c
 	$(CC) $(TEST_CFLAGS) $< $(TEST_LDFLAGS) -o $@

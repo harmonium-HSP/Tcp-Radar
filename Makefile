@@ -51,6 +51,9 @@ $(TEST_DIR)/test_congestion: $(TEST_DIR)/test_congestion.c $(SRC_DIR)/congestion
 $(TEST_DIR)/test_json: $(TEST_DIR)/test_json.c $(SRC_DIR)/json.c $(SRC_DIR)/flow.c $(SRC_DIR)/state_helper.c
 	$(CC) $(TEST_CFLAGS) -Iinclude $< $(SRC_DIR)/json.c $(SRC_DIR)/flow.c $(SRC_DIR)/state_helper.c $(TEST_LDFLAGS) -o $@
 
+$(TEST_DIR)/test_logger: $(TEST_DIR)/test_logger.c $(SRC_DIR)/logger.c
+	$(CC) $(TEST_CFLAGS) -Iinclude $< $(SRC_DIR)/logger.c $(TEST_LDFLAGS) -lsqlite3 -pthread -o $@
+
 $(TEST_DIR)/test_%: $(TEST_DIR)/test_%.c
 	$(CC) $(TEST_CFLAGS) $< $(TEST_LDFLAGS) -o $@
 
@@ -60,6 +63,7 @@ test-clean:
 test: test-build
 	./tests/run_tests.sh
 
+# Docker 相关
 docker-build:
 	docker build -t tcp-radar:latest .
 

@@ -1,0 +1,13 @@
+CompileFlags:
+  Add:
+    - "-Iinclude"
+    - "-I."
+    - "-I/usr/include"
+    - "-I/usr/local/include"
+    - "-I/usr/include/x86_64-linux-gnu"
+    - "-DUNIT_TESTING"
+  Remove:
+    - "-std=*"
+
+Diagnostics:
+  UnusedIncludes: None
